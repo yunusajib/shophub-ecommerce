@@ -1,28 +1,9 @@
 {
-  "version": 2,
-  "public": true,
   "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/client/pages/index.html"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/pages/(.*)",
-      "dest": "/client/pages/$1"
-    },
-    {
-      "src": "/css/(.*)",
-      "dest": "/client/css/$1"
-    },
-    {
-      "src": "/js/(.*)",
-      "dest": "/client/js/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/client/pages/$1"
-    }
+    { "source": "/", "destination": "/client/pages/index.html" },
+    { "source": "/pages/:path*", "destination": "/client/pages/:path*" },
+    { "source": "/css/:path*", "destination": "/client/css/:path*" },
+    { "source": "/js/:path*", "destination": "/client/js/:path*" },
+    { "source": "/:path*.html", "destination": "/client/pages/:path*.html" }
   ]
 }
