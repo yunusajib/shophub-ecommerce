@@ -1,0 +1,10 @@
+{
+  "buildCommand": null,
+  "outputDirectory": "client",
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ]
+}
