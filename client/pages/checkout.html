@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - ShopHub</title>
+    <link rel="stylesheet" href="../css/../css/../css/styles.css">
+    <link rel="stylesheet" href="../css/../css/../css/checkout-styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><h1>ShopHub</h1></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#products">Products</a></li>
+                </ul>
+            </nav>
+            <div class="cart-icon">
+                <a href="cart.html" style="color: white; text-decoration: none;">🛒 <span id="cart-count">0</span></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Checkout Section -->
+    <section class="checkout-section">
+        <div class="container">
+            <h1 class="page-title">Checkout</h1>
+            
+            <!-- Progress Steps -->
+            <div class="checkout-progress">
+                <div class="progress-step active" id="step-1-indicator">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Shipping</div>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" id="step-2-indicator">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Payment</div>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" id="step-3-indicator">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Review</div>
+                </div>
+            </div>
+            
+            <div class="checkout-container">
+                <!-- Checkout Form -->
+                <div class="checkout-form-container">
+                    
+                    <!-- Step 1: Shipping Information -->
+                    <div id="step-1" class="checkout-step active">
+                        <h2>Shipping Information</h2>
+                        <form id="shipping-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name *</label>
+                                    <input type="text" id="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name *</label>
+                                    <input type="text" id="lastName" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="address">Street Address *</label>
+                                <input type="text" id="address" required>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="city">City *</label>
+                                    <input type="text" id="city" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="state">State/Province *</label>
+                                    <input type="text" id="state" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="zipCode">ZIP/Postal Code *</label>
+                                    <input type="text" id="zipCode" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="country">Country *</label>
+                                    <select id="country" required>
+                                        <option value="">Select Country</option>
+                                        <option value="US">United States</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="UK">United Kingdom</option>
+                                        <option value="AU">Australia</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <button type="button" class="next-btn" onclick="goToStep(2)">
+                                Continue to Payment →
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <!-- Step 2: Payment Information -->
+                    <div id="step-2" class="checkout-step">
+                        <h2>Payment Information</h2>
+                        <form id="payment-form">
+                            <div class="form-group">
+                                <label for="cardName">Cardholder Name *</label>
+                                <input type="text" id="cardName" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cardNumber">Card Number *</label>
+                                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="expiryDate">Expiry Date *</label>
+                                    <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cvv">CVV *</label>
+                                    <input type="text" id="cvv" placeholder="123" maxlength="3" required>
+                                </div>
+                            </div>
+                            
+                            <div class="payment-note">
+                                🔒 This is a demo. No real payment will be processed.
+                            </div>
+                            
+                            <div class="button-group">
+                                <button type="button" class="back-btn" onclick="goToStep(1)">
+                                    ← Back to Shipping
+                                </button>
+                                <button type="button" class="next-btn" onclick="goToStep(3)">
+                                    Review Order →
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Step 3: Review Order -->
+                    <div id="step-3" class="checkout-step">
+                        <h2>Review Your Order</h2>
+                        
+                        <div class="review-section">
+                            <h3>Shipping Address</h3>
+                            <div id="review-shipping" class="review-content"></div>
+                        </div>
+                        
+                        <div class="review-section">
+                            <h3>Payment Method</h3>
+                            <div id="review-payment" class="review-content"></div>
+                        </div>
+                        
+                        <div class="review-section">
+                            <h3>Order Items</h3>
+                            <div id="review-items" class="review-items"></div>
+                        </div>
+                        
+                        <div class="button-group">
+                            <button type="button" class="back-btn" onclick="goToStep(2)">
+                                ← Back to Payment
+                            </button>
+                            <button type="button" class="place-order-btn" onclick="placeOrder()">
+                                Place Order
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <!-- Order Summary Sidebar -->
+                <div class="order-summary-sidebar">
+                    <h2>Order Summary</h2>
+                    
+                    <div id="summary-items" class="summary-items">
+                        <!-- Items will be loaded here -->
+                    </div>
+                    
+                    <!-- Promo Code Section -->
+                    <div class="promo-code-section">
+                        <input type="text" id="promo-code-input" placeholder="Enter promo code" style="width: 100%; padding: 10px; border: 2px solid #ecf0f1; border-radius: 5px; margin-bottom: 10px;">
+                        <button onclick="applyPromoCode()" style="width: 100%; background-color: #27ae60; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; font-weight: 600;">Apply Code</button>
+                        <div id="promo-message" style="margin-top: 10px; font-size: 0.9rem;"></div>
+                    </div>
+                    
+                    <div class="summary-totals">
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span id="summary-subtotal">$0.00</span>
+                        </div>
+                        <div class="summary-row" id="discount-row" style="display: none; color: #27ae60;">
+                            <span>Discount (<span id="discount-code"></span>):</span>
+                            <span id="summary-discount">-$0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Shipping:</span>
+                            <span id="summary-shipping">$0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Tax:</span>
+                            <span id="summary-tax">$0.00</span>
+                        </div>
+                        <hr>
+                        <div class="summary-row total">
+                            <span>Total:</span>
+                            <span id="summary-total">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ShopHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/../js/../js/../js/checkout.js"></script>
+</body>
+</html>

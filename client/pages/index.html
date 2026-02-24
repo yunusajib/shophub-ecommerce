@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopHub - Your Online Store</title>
+    <link rel="stylesheet" href="../css/../css/../css/styles.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>ShopHub</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#products">Products</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+
+                </ul>
+            </nav>
+            <div class="cart-icon">
+                <a href="cart.html" style="color: white; text-decoration: none;">🛒 <span id="cart-count">0</span></a>
+            </div>
+            <a href="wishlist.html" style="color: white; text-decoration: none; margin-left: 15px; font-size: 1.5rem;">
+                ❤️ <span id="wishlist-count"
+                    style="background-color: #e74c3c; border-radius: 50%; padding: 2px 6px; font-size: 0.8rem; position: relative; top: -5px;">0</span>
+            </a>
+            <div class="auth-links" id="auth-links">
+                <a href="login.html" style="color: white; text-decoration: none; margin-left: 15px;">Login</a>
+                <a href="register.html" style="color: white; text-decoration: none; margin-left: 15px;">Sign Up</a>
+            </div>
+            <div class="user-menu" id="user-menu" style="display: none; margin-left: 15px;">
+                <a href="profile.html" style="color: white; text-decoration: none;">
+                    👤 <span id="user-name-display">My Account</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Welcome to ShopHub</h2>
+            <p>Discover amazing products at great prices</p>
+            <button class="cta-button" onclick="scrollToProducts()">Shop Now</button>
+        </div>
+    </section>
+
+    <!-- Search & Filter Section -->
+    <section class="search-filter-section">
+        <div class="container">
+            <div class="search-bar-container">
+                <input type="text" id="search-input" class="search-input" placeholder="Search for products..."
+                    onkeyup="handleSearch()">
+                <button class="search-btn" onclick="handleSearch()">🔍 Search</button>
+            </div>
+
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <label for="category-filter">Category:</label>
+                    <select id="category-filter" onchange="applyFilters()">
+                        <option value="all">All Categories</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="accessories">Accessories</option>
+                        <option value="peripherals">Peripherals</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="price-filter">Max Price: $<span id="price-value">200</span></label>
+                    <input type="range" id="price-filter" min="0" max="200" value="200" step="10"
+                        oninput="updatePriceLabel(); applyFilters()">
+                </div>
+
+                <div class="filter-group">
+                    <label for="sort-filter">Sort By:</label>
+                    <select id="sort-filter" onchange="applyFilters()">
+                        <option value="default">Default</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="name-asc">Name: A to Z</option>
+                        <option value="name-desc">Name: Z to A</option>
+                    </select>
+                </div>
+
+                <button class="clear-filters-btn" onclick="clearFilters()">Clear Filters</button>
+            </div>
+
+            <div class="results-info">
+                <span id="results-count">Showing all products</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section id="products" class="products-section">
+        <div class="container">
+            <h2>Featured Products</h2>
+            <div id="products-container" class="products-grid">
+                <!-- Products will be loaded here dynamically -->
+                <div class="loading">Loading products...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ShopHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/../js/../js/../js/app.js"></script>
+</body>
+
+</html>
