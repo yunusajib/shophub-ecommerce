@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Login - ShopHub</title>
+    <link rel="stylesheet" href="../css/../css/../css/styles.css">
+    <link rel="stylesheet" href="../css/../css/../css/auth-styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><h1>ShopHub</h1></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="vendor-register.html">Become a Vendor</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Vendor Login Section -->
+    <section class="auth-section">
+        <div class="auth-container">
+            <div class="auth-box">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="font-size: 3rem;">🏪</div>
+                </div>
+                <h1>Vendor Login</h1>
+                <p class="auth-subtitle">Access your vendor dashboard</p>
+                
+                <form id="vendor-login-form" onsubmit="handleVendorLogin(event)">
+                    <div class="form-group">
+                        <label for="vendor-email">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="vendor-email" 
+                            required 
+                            placeholder="your@email.com"
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="vendor-password">Password</label>
+                        <input 
+                            type="password" 
+                            id="vendor-password" 
+                            required 
+                            placeholder="Enter your password"
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 10px; font-weight: normal;">
+                            <input type="checkbox" id="remember-me">
+                            Remember me
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn">Login to Dashboard</button>
+                    
+                    <div id="error-message" class="error-text" style="display: none;"></div>
+                </form>
+                
+                <div class="auth-divider">
+                    <span>Demo Vendor Account</span>
+                </div>
+                
+                <p style="text-align: center; color: #555; font-size: 0.9rem;">
+                    Email: <strong>vendor@shophub.com</strong><br>
+                    Password: <strong>vendor123</strong>
+                </p>
+                
+                <p class="auth-switch">
+                    Don't have a vendor account? <a href="vendor-register.html">Sign up here</a>
+                </p>
+                
+                <p class="auth-switch">
+                    Looking to buy? <a href="index.html">Shop as Customer</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ShopHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/../js/../js/../js/vendor-auth.js"></script>
+</body>
+</html>

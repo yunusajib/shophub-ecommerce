@@ -6,15 +6,15 @@ class Order {
         const result = await db.query(
             'SELECT * FROM orders ORDER BY created_at DESC'
         );
-        
-            return result.rows.map(order => ({
-                ...order,
-                subtotal: parseFloat(order.subtotal || 0),
-                discount: parseFloat(order.discount || 0),
-                shipping_cost: parseFloat(order.shipping_cost || 0),
-                tax: parseFloat(order.tax || 0),
-                total: parseFloat(order.total || 0)
-            }));
+
+        return result.rows.map(order => ({
+            ...order,
+            subtotal: parseFloat(order.subtotal || 0),
+            discount: parseFloat(order.discount || 0),
+            shipping_cost: parseFloat(order.shipping_cost || 0),
+            tax: parseFloat(order.tax || 0),
+            total: parseFloat(order.total || 0)
+        }));
     }
 
     // Get order by ID with items
@@ -49,15 +49,15 @@ class Order {
             'SELECT * FROM orders WHERE user_id = $1 ORDER BY created_at DESC',
             [userId]
         );
-        
-            return result.rows.map(order => ({
-                ...order,
-                subtotal: parseFloat(order.subtotal || 0),
-                discount: parseFloat(order.discount || 0),
-                shipping_cost: parseFloat(order.shipping_cost || 0),
-                tax: parseFloat(order.tax || 0),
-                total: parseFloat(order.total || 0)
-            }));
+
+        return result.rows.map(order => ({
+            ...order,
+            subtotal: parseFloat(order.subtotal || 0),
+            discount: parseFloat(order.discount || 0),
+            shipping_cost: parseFloat(order.shipping_cost || 0),
+            tax: parseFloat(order.tax || 0),
+            total: parseFloat(order.total || 0)
+        }));
     }
 
     // Get orders by vendor ID
@@ -87,7 +87,7 @@ class Order {
     }
 
     // Create new order with items (transaction)
-        static async create(orderData) {
+    static async create(orderData) {
         return await db.transaction(async (client) => {
             // Insert order with only fields that exist in schema
             const orderResult = await client.query(
@@ -117,7 +117,7 @@ class Order {
                 ]
             );
             const order = orderResult.rows[0];
-            
+
             // Insert order items
             for (const item of orderData.items) {
                 const productResult = await client.query(
@@ -132,7 +132,7 @@ class Order {
                     );
                 }
             }
-            
+
             return order;
         });
     }

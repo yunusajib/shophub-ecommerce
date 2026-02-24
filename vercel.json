@@ -1,9 +1,6 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/client/pages/index.html" },
-    { "source": "/pages/:path*", "destination": "/client/pages/:path*" },
-    { "source": "/css/:path*", "destination": "/client/css/:path*" },
-    { "source": "/js/:path*", "destination": "/client/js/:path*" },
-    { "source": "/:path*.html", "destination": "/client/pages/:path*.html" }
+    { "source": "/", "destination": "/pages/index.html" },
+    { "source": "/:file.html", "destination": "/pages/:file.html" }
   ]
 }

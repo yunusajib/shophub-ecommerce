@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - ShopHub</title>
+    <link rel="stylesheet" href="../css/../css/../css/styles.css">
+    <link rel="stylesheet" href="../css/../css/../css/about-contact.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><h1>ShopHub</h1></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#products">Products</a></li>
+                    <li><a href="about.html" class="active">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions" style="display: flex; gap: 15px;">
+                <a href="wishlist.html" style="color: white; text-decoration: none; font-size: 1.5rem;">
+                    ❤️ <span id="wishlist-count" style="background-color: #e74c3c; border-radius: 50%; padding: 2px 6px; font-size: 0.8rem; position: relative; top: -5px;">0</span>
+                </a>
+                <div class="cart-icon">
+                    <a href="cart.html" style="color: white; text-decoration: none;">🛒 <span id="cart-count">0</span></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Hero Section -->
+    <section class="about-hero">
+        <div class="hero-content">
+            <h1>About ShopHub</h1>
+            <p>Your trusted online shopping destination since 2024</p>
+        </div>
+    </section>
+
+    <!-- About Content -->
+    <section class="about-content">
+        <div class="container">
+            
+            <!-- Our Story -->
+            <div class="about-section">
+                <h2>Our Story</h2>
+                <div class="content-grid">
+                    <div class="content-text">
+                        <p>ShopHub was founded with a simple mission: to make online shopping easy, enjoyable, and accessible to everyone. What started as a small team with big dreams has grown into a trusted e-commerce platform serving thousands of satisfied customers.</p>
+                        <p>We believe that shopping should be more than just a transaction. It's about discovering products you love, getting great value, and enjoying a seamless experience from browsing to delivery.</p>
+                        <p>Today, we're proud to offer a carefully curated selection of high-quality products, backed by exceptional customer service and a commitment to your satisfaction.</p>
+                    </div>
+                    <div class="content-image">
+                        <div class="image-placeholder">
+                            <span style="font-size: 5rem;">🏪</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Our Values -->
+            <div class="about-section">
+                <h2>Our Values</h2>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">✨</div>
+                        <h3>Quality First</h3>
+                        <p>We handpick every product to ensure you get the best quality and value for your money.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🤝</div>
+                        <h3>Customer Focus</h3>
+                        <p>Your satisfaction is our priority. We're here to help with any questions or concerns.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🚀</div>
+                        <h3>Innovation</h3>
+                        <p>We continuously improve our platform to give you the best shopping experience.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">💚</div>
+                        <h3>Sustainability</h3>
+                        <p>We're committed to responsible business practices and eco-friendly packaging.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Why Choose Us -->
+            <div class="about-section">
+                <h2>Why Choose ShopHub?</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div class="feature-content">
+                            <h4>Free Shipping</h4>
+                            <p>On orders over $100</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div class="feature-content">
+                            <h4>30-Day Returns</h4>
+                            <p>Money-back guarantee</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div class="feature-content">
+                            <h4>Secure Checkout</h4>
+                            <p>100% secure payment</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div class="feature-content">
+                            <h4>24/7 Support</h4>
+                            <p>Always here to help</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div class="feature-content">
+                            <h4>Best Prices</h4>
+                            <p>Competitive pricing</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div class="feature-content">
+                            <h4>Quality Products</h4>
+                            <p>Carefully curated selection</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="about-cta">
+                <h2>Ready to Start Shopping?</h2>
+                <p>Discover amazing products at great prices</p>
+                <div class="cta-buttons">
+                    <a href="index.html#products" class="cta-button">Shop Now</a>
+                    <a href="contact.html" class="cta-button secondary">Contact Us</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ShopHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Update cart and wishlist counts
+        document.addEventListener('DOMContentLoaded', () => {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').textContent = totalItems;
+            document.getElementById('wishlist-count').textContent = wishlist.length;
+        });
+    </script>
+</body>
+</html>

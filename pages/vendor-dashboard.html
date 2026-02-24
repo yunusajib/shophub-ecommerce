@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Dashboard - ShopHub</title>
+    <link rel="stylesheet" href="../css/../css/../css/styles.css">
+    <link rel="stylesheet" href="../css/../css/../css/admin-styles.css">
+</head>
+<body class="admin-body">
+    <!-- Vendor Header -->
+    <header class="admin-header">
+        <div class="admin-header-content">
+            <div class="logo">
+                <h1>🏪 Vendor Dashboard</h1>
+            </div>
+            <div class="admin-user">
+                <span id="vendor-shop-name">My Shop</span>
+                <button class="logout-btn-header" onclick="handleVendorLogout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <nav class="admin-nav">
+                <button class="nav-item active" onclick="showSection('dashboard')">
+                    📊 Dashboard
+                </button>
+                <button class="nav-item" onclick="showSection('products')">
+                    📦 My Products
+                </button>
+                <button class="nav-item" onclick="showSection('orders')">
+                    🛒 My Orders
+                </button>
+                <button class="nav-item" onclick="showSection('earnings')">
+                    💰 Earnings
+                </button>
+                <button class="nav-item" onclick="showSection('shop-profile')">
+                    ⚙️ Shop Profile
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="admin-section active">
+                <h2>Dashboard Overview</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-info">
+                            <div class="stat-label">Total Earnings</div>
+                            <div class="stat-value" id="vendor-earnings">$0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">🛒</div>
+                        <div class="stat-info">
+                            <div class="stat-label">Total Orders</div>
+                            <div class="stat-value" id="vendor-orders">0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">📦</div>
+                        <div class="stat-info">
+                            <div class="stat-label">My Products</div>
+                            <div class="stat-value" id="vendor-products-count">0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-info">
+                            <div class="stat-label">Avg Rating</div>
+                            <div class="stat-value" id="vendor-rating">0.0</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>Recent Orders</h3>
+                        <div id="vendor-recent-orders"></div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <h3>Top Products</h3>
+                        <div id="vendor-top-products"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Products Section -->
+            <section id="products-section" class="admin-section">
+                <div class="section-header">
+                    <h2>My Products</h2>
+                    <button class="primary-btn" onclick="showAddProductForm()">+ Add New Product</button>
+                </div>
+                
+                <!-- Add/Edit Product Form -->
+                <div id="product-form-container" class="form-container" style="display: none;">
+                    <h3 id="form-title">Add New Product</h3>
+                    <form id="product-form" onsubmit="saveVendorProduct(event)">
+                        <input type="hidden" id="product-id">
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="product-name">Product Name *</label>
+                                <input type="text" id="product-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-price">Price *</label>
+                                <input type="number" id="product-price" step="0.01" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="product-description">Description *</label>
+                            <textarea id="product-description" rows="3" required></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="product-image">Image URL *</label>
+                                <input type="url" id="product-image" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-stock">Stock *</label>
+                                <input type="number" id="product-stock" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="product-category">Category *</label>
+                            <select id="product-category" required>
+                                <option value="">Select Category</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Accessories">Accessories</option>
+                                <option value="Peripherals">Peripherals</option>
+                                <option value="Clothing">Clothing</option>
+                                <option value="Home">Home & Garden</option>
+                                <option value="Sports">Sports & Outdoors</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="secondary-btn" onclick="hideProductForm()">Cancel</button>
+                            <button type="submit" class="primary-btn">Save Product</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Products Table -->
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="vendor-products-table">
+                            <!-- Products will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Orders Section -->
+            <section id="orders-section" class="admin-section">
+                <h2>My Orders</h2>
+                
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Order #</th>
+                                <th>Date</th>
+                                <th>Customer</th>
+                                <th>Product</th>
+                                <th>Qty</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="vendor-orders-table">
+                            <!-- Orders will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Earnings Section -->
+            <section id="earnings-section" class="admin-section">
+                <h2>Earnings</h2>
+                
+                <div class="dashboard-card" style="margin-bottom: 30px;">
+                    <h3>Earnings Summary</h3>
+                    <div class="stats-grid" style="margin-top: 20px;">
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <div class="stat-label">Total Revenue</div>
+                                <div class="stat-value" id="total-revenue">$0</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <div class="stat-label">Platform Fee (10%)</div>
+                                <div class="stat-value" id="platform-fee">$0</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <div class="stat-label">Your Earnings (90%)</div>
+                                <div class="stat-value" id="net-earnings">$0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3>Recent Transactions</h3>
+                    <div id="earnings-list"></div>
+                </div>
+            </section>
+
+            <!-- Shop Profile Section -->
+            <section id="shop-profile-section" class="admin-section">
+                <h2>Shop Profile</h2>
+                
+                <div class="form-container">
+                    <form id="shop-profile-form" onsubmit="updateShopProfile(event)">
+                        <div class="form-group">
+                            <label for="profile-shop-name">Shop Name *</label>
+                            <input type="text" id="profile-shop-name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="profile-owner-name">Owner Name *</label>
+                            <input type="text" id="profile-owner-name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="profile-email">Email *</label>
+                            <input type="email" id="profile-email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="profile-phone">Phone *</label>
+                            <input type="tel" id="profile-phone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="profile-address">Business Address *</label>
+                            <input type="text" id="profile-address" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="profile-description">Shop Description *</label>
+                            <textarea id="profile-description" rows="4" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="primary-btn">Update Profile</button>
+                    </form>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="../js/../js/../js/../js/vendor-dashboard.js"></script>
+</body>
+</html>
