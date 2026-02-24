@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'https://shophub-backend-k2dx.onrender.com/api';
 
 // Handle Login
 async function handleLogin(event) {
