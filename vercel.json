@@ -1,10 +1,28 @@
 {
-  "buildCommand": null,
-  "outputDirectory": "client",
+  "version": 2,
+  "public": true,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/client/pages/index.html"
+    }
+  ],
   "routes": [
     {
+      "src": "/pages/(.*)",
+      "dest": "/client/pages/$1"
+    },
+    {
+      "src": "/css/(.*)",
+      "dest": "/client/css/$1"
+    },
+    {
+      "src": "/js/(.*)",
+      "dest": "/client/js/$1"
+    },
+    {
       "src": "/(.*)",
-      "dest": "/$1"
+      "dest": "/client/pages/$1"
     }
   ]
 }
