@@ -1,21 +1,30 @@
-const { Pool } = require('pg');
+const { Pool } = require("pg");
 
-// Database configuration
-const pool = new Pool({
-    user: process.env.DB_USER || 'postgres',
-    host: process.env.DB_HOST || 'localhost',
-    database: process.env.DB_NAME || 'shophub',
-    password: process.env.DB_PASSWORD || '',
-    port: process.env.DB_PORT || 5432,
-});
+// Detect if we are using a connection string (Render/Neon)
+const isProduction = !!process.env.DATABASE_URL;
+
+const pool = new Pool(
+    isProduction
+        ? {
+            connectionString: process.env.DATABASE_URL,
+            ssl: { rejectUnauthorized: false }, // required for Neon
+        }
+        : {
+            user: process.env.DB_USER || "postgres",
+            host: process.env.DB_HOST || "localhost",
+            database: process.env.DB_NAME || "shophub",
+            password: process.env.DB_PASSWORD || "",
+            port: process.env.DB_PORT || 5432,
+        }
+);
 
 // Test connection
-pool.on('connect', () => {
-    console.log('✅ Connected to PostgreSQL database');
+pool.on("connect", () => {
+    console.log("✅ Connected to PostgreSQL database");
 });
 
-pool.on('error', (err) => {
-    console.error('❌ Database error:', err);
+pool.on("error", (err) => {
+    console.error("❌ Database error:", err);
     process.exit(-1);
 });
 
@@ -25,10 +34,13 @@ const query = async (text, params) => {
     try {
         const res = await pool.query(text, params);
         const duration = Date.now() - start;
-        console.log('Executed query', { text, duration, rows: res.rowCount });
+        console.log("Executed query", {
+            duration,
+            rows: res.rowCount,
+        });
         return res;
     } catch (error) {
-        console.error('Database query error:', error);
+        console.error("Database query error:", error);
         throw error;
     }
 };
@@ -37,12 +49,12 @@ const query = async (text, params) => {
 const transaction = async (callback) => {
     const client = await pool.connect();
     try {
-        await client.query('BEGIN');
+        await client.query("BEGIN");
         const result = await callback(client);
-        await client.query('COMMIT');
+        await client.query("COMMIT");
         return result;
     } catch (error) {
-        await client.query('ROLLBACK');
+        await client.query("ROLLBACK");
         throw error;
     } finally {
         client.release();
@@ -52,5 +64,5 @@ const transaction = async (callback) => {
 module.exports = {
     query,
     transaction,
-    pool
+    pool,
 };
