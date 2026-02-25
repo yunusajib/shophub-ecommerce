@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - ShopHub</title>
+    <link rel="stylesheet" href="../css/../css/../css/styles.css">
+    <link rel="stylesheet" href="../css/../css/../css/checkout-styles.css">
+    <style>
+        .confirmation-section {
+            min-height: calc(100vh - 200px);
+            padding: 60px 20px;
+            background-color: #f8f9fa;
+        }
+        
+        .confirmation-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 60px 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background-color: #27ae60;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 3rem;
+        }
+        
+        .confirmation-container h1 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 2.5rem;
+        }
+        
+        .order-number {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .order-number strong {
+            color: #3498db;
+        }
+        
+        .confirmation-message {
+            color: #555;
+            line-height: 1.8;
+            margin: 30px 0;
+            font-size: 1.1rem;
+        }
+        
+        .order-details {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .detail-row:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #2c3e50;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+        
+        .action-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        
+        .primary-btn {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .primary-btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .secondary-btn {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+        }
+        
+        .secondary-btn:hover {
+            background-color: #bdc3c7;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><h1>ShopHub</h1></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#products">Products</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Confirmation Section -->
+    <section class="confirmation-section">
+        <div class="confirmation-container">
+            <div class="success-icon">✓</div>
+            
+            <h1>Thank You!</h1>
+            <p class="order-number">Order <strong>#<span id="order-id">-</span></strong></p>
+            
+            <p class="confirmation-message">
+                Your order has been successfully placed!<br>
+                We've sent a confirmation email to <strong id="customer-email">your email</strong>.
+            </p>
+            
+            <div class="order-details" id="order-details">
+                <div class="detail-row">
+                    <span>Subtotal:</span>
+                    <span id="detail-subtotal">$0.00</span>
+                </div>
+                <div class="detail-row">
+                    <span>Shipping:</span>
+                    <span id="detail-shipping">$0.00</span>
+                </div>
+                <div class="detail-row">
+                    <span>Tax:</span>
+                    <span id="detail-tax">$0.00</span>
+                </div>
+                <div class="detail-row">
+                    <span>Total:</span>
+                    <span id="detail-total">$0.00</span>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <a href="profile.html" class="action-btn primary-btn">View Order History</a>
+                <a href="index.html" class="action-btn secondary-btn">Continue Shopping</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ShopHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/../js/../js/../js/order-confirmation.js"></script>
+</body>
+</html>

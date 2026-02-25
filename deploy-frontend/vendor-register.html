@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Become a Vendor - ShopHub</title>
+    <link rel="stylesheet" href="../css/../css/../css/styles.css">
+    <link rel="stylesheet" href="../css/../css/../css/auth-styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><h1>ShopHub</h1></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="vendor-login.html">Vendor Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Vendor Registration Section -->
+    <section class="auth-section">
+        <div class="auth-container">
+            <div class="auth-box">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="font-size: 3rem;">🏪</div>
+                </div>
+                <h1>Become a Vendor</h1>
+                <p class="auth-subtitle">Start selling on ShopHub today!</p>
+                
+                <form id="vendor-register-form" onsubmit="handleVendorRegister(event)">
+                    <div class="form-group">
+                        <label for="shop-name">Shop/Business Name *</label>
+                        <input 
+                            type="text" 
+                            id="shop-name" 
+                            required 
+                            placeholder="My Awesome Shop"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="owner-name">Owner Name *</label>
+                        <input 
+                            type="text" 
+                            id="owner-name" 
+                            required 
+                            placeholder="John Doe"
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="vendor-email">Email Address *</label>
+                        <input 
+                            type="email" 
+                            id="vendor-email" 
+                            required 
+                            placeholder="shop@example.com"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="vendor-phone">Phone Number *</label>
+                        <input 
+                            type="tel" 
+                            id="vendor-phone" 
+                            required 
+                            placeholder="(555) 123-4567"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="business-address">Business Address *</label>
+                        <input 
+                            type="text" 
+                            id="business-address" 
+                            required 
+                            placeholder="123 Business St, City, State"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shop-description">Shop Description *</label>
+                        <textarea 
+                            id="shop-description" 
+                            rows="3" 
+                            required 
+                            placeholder="Tell customers about your business..."
+                        ></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="vendor-password">Password *</label>
+                        <input 
+                            type="password" 
+                            id="vendor-password" 
+                            required 
+                            minlength="6"
+                            placeholder="Minimum 6 characters"
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="vendor-confirm-password">Confirm Password *</label>
+                        <input 
+                            type="password" 
+                            id="vendor-confirm-password" 
+                            required 
+                            placeholder="Re-enter password"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 10px; font-weight: normal;">
+                            <input type="checkbox" required>
+                            I agree to the Vendor Terms & Conditions *
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn">Create Vendor Account</button>
+                    
+                    <div id="error-message" class="error-text" style="display: none;"></div>
+                    <div id="success-message" class="success-text" style="display: none;"></div>
+                </form>
+                
+                <p class="auth-switch">
+                    Already have a vendor account? <a href="vendor-login.html">Login here</a>
+                </p>
+                
+                <p class="auth-switch">
+                    Looking to buy? <a href="index.html">Shop as Customer</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ShopHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/../js/../js/../js/vendor-auth.js"></script>
+</body>
+</html>

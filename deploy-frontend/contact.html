@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - ShopHub</title>
+    <link rel="stylesheet" href="../css/../css/../css/styles.css">
+    <link rel="stylesheet" href="../css/../css/../css/about-contact.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><h1>ShopHub</h1></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#products">Products</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions" style="display: flex; gap: 15px;">
+                <a href="wishlist.html" style="color: white; text-decoration: none; font-size: 1.5rem;">
+                    ❤️ <span id="wishlist-count" style="background-color: #e74c3c; border-radius: 50%; padding: 2px 6px; font-size: 0.8rem; position: relative; top: -5px;">0</span>
+                </a>
+                <div class="cart-icon">
+                    <a href="cart.html" style="color: white; text-decoration: none;">🛒 <span id="cart-count">0</span></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contact Hero Section -->
+    <section class="contact-hero">
+        <div class="hero-content">
+            <h1>Get in Touch</h1>
+            <p>We'd love to hear from you. Send us a message!</p>
+        </div>
+    </section>
+
+    <!-- Contact Content -->
+    <section class="contact-content">
+        <div class="container">
+            
+            <div class="contact-grid">
+                
+                <!-- Contact Form -->
+                <div class="contact-form-section">
+                    <h2>Send Us a Message</h2>
+                    <form id="contact-form" onsubmit="handleContactSubmit(event)">
+                        <div class="form-group">
+                            <label for="contact-name">Your Name *</label>
+                            <input type="text" id="contact-name" required placeholder="John Doe">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-email">Email Address *</label>
+                            <input type="email" id="contact-email" required placeholder="john@example.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-subject">Subject *</label>
+                            <select id="contact-subject" required>
+                                <option value="">Select a subject</option>
+                                <option value="general">General Inquiry</option>
+                                <option value="order">Order Support</option>
+                                <option value="product">Product Question</option>
+                                <option value="return">Returns & Refunds</option>
+                                <option value="technical">Technical Issue</option>
+                                <option value="feedback">Feedback</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-message">Message *</label>
+                            <textarea id="contact-message" rows="6" required placeholder="How can we help you?"></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Send Message</button>
+
+                        <div id="form-message" style="display: none; margin-top: 20px; padding: 15px; border-radius: 5px;"></div>
+                    </form>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="contact-info-section">
+                    <h2>Contact Information</h2>
+                    
+                    <div class="contact-info-card">
+                        <div class="info-icon">📧</div>
+                        <div class="info-content">
+                            <h4>Email</h4>
+                            <p>support@shophub.com</p>
+                            <p class="info-note">We reply within 24 hours</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card">
+                        <div class="info-icon">📞</div>
+                        <div class="info-content">
+                            <h4>Phone</h4>
+                            <p>1-800-SHOPHUB</p>
+                            <p class="info-note">Mon-Fri, 9am-6pm EST</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card">
+                        <div class="info-icon">📍</div>
+                        <div class="info-content">
+                            <h4>Address</h4>
+                            <p>123 Commerce Street</p>
+                            <p>New York, NY 10001</p>
+                            <p class="info-note">Visit by appointment</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card">
+                        <div class="info-icon">⏰</div>
+                        <div class="info-content">
+                            <h4>Business Hours</h4>
+                            <p>Monday - Friday: 9am - 6pm</p>
+                            <p>Saturday: 10am - 4pm</p>
+                            <p>Sunday: Closed</p>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <h4>Follow Us</h4>
+                        <div class="social-icons">
+                            <a href="#" class="social-icon">📘 Facebook</a>
+                            <a href="#" class="social-icon">🐦 Twitter</a>
+                            <a href="#" class="social-icon">📷 Instagram</a>
+                            <a href="#" class="social-icon">💼 LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h4>What are your shipping times?</h4>
+                        <p>Standard shipping takes 3-5 business days. Express shipping is available for 1-2 day delivery.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>What is your return policy?</h4>
+                        <p>We offer a 30-day money-back guarantee on all products. Items must be unused and in original packaging.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Do you ship internationally?</h4>
+                        <p>Currently, we ship to the United States, Canada, United Kingdom, and Australia.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>How can I track my order?</h4>
+                        <p>You'll receive a tracking number via email once your order ships. You can also check your order history in your account.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ShopHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Update cart and wishlist counts
+        document.addEventListener('DOMContentLoaded', () => {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').textContent = totalItems;
+            document.getElementById('wishlist-count').textContent = wishlist.length;
+        });
+
+        // Handle contact form submission
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            
+            const formMessage = document.getElementById('form-message');
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const subject = document.getElementById('contact-subject').value;
+            const message = document.getElementById('contact-message').value;
+            
+            // In a real application, you would send this to your backend
+            console.log('Contact Form Submission:', { name, email, subject, message });
+            
+            // Show success message
+            formMessage.style.display = 'block';
+            formMessage.style.backgroundColor = '#e8f5e9';
+            formMessage.style.color = '#27ae60';
+            formMessage.innerHTML = `
+                <strong>✓ Message sent successfully!</strong><br>
+                Thank you for contacting us, ${name}. We'll get back to you within 24 hours at ${email}.
+            `;
+            
+            // Reset form
+            document.getElementById('contact-form').reset();
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                formMessage.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

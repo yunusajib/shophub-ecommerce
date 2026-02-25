@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - ShopHub</title>
+    <link rel="stylesheet" href="../css/../css/../css/styles.css">
+    <link rel="stylesheet" href="../css/../css/../css/auth-styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><h1>ShopHub</h1></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#products">Products</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="user-menu">
+                    <span id="user-name-header">My Account</span>
+                </div>
+                <div class="cart-icon">
+                    <a href="cart.html" style="color: white; text-decoration: none;">🛒 <span id="cart-count">0</span></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Profile Section -->
+    <section class="profile-section">
+        <div class="container">
+            <h1 class="page-title">My Profile</h1>
+            
+            <div class="profile-container">
+                <!-- Profile Sidebar -->
+                <div class="profile-sidebar">
+                    <div class="profile-avatar">
+                        <div class="avatar-circle" id="avatar-initials">U</div>
+                        <h2 id="user-full-name">User</h2>
+                        <p id="user-email">user@example.com</p>
+                    </div>
+                    
+                    <nav class="profile-nav">
+                        <button class="profile-nav-btn active" onclick="showSection('info')">
+                            👤 Personal Info
+                        </button>
+                        <button class="profile-nav-btn" onclick="showSection('orders')">
+                            📦 Order History
+                        </button>
+                        <button class="profile-nav-btn" onclick="showSection('settings')">
+                            ⚙️ Settings
+                        </button>
+                        <button class="profile-nav-btn logout-btn" onclick="handleLogout()">
+                            🚪 Logout
+                        </button>
+                    </nav>
+                </div>
+                
+                <!-- Profile Content -->
+                <div class="profile-content">
+                    <!-- Personal Info Section -->
+                    <div id="info-section" class="content-section active">
+                        <h2>Personal Information</h2>
+                        <div class="info-card">
+                            <div class="info-item">
+                                <label>Full Name</label>
+                                <p id="display-name">Loading...</p>
+                            </div>
+                            <div class="info-item">
+                                <label>Email Address</label>
+                                <p id="display-email">Loading...</p>
+                            </div>
+                            <div class="info-item">
+                                <label>Member Since</label>
+                                <p id="display-joined">Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Order History Section -->
+                    <div id="orders-section" class="content-section">
+                        <h2>Order History</h2>
+                        <div id="orders-container">
+                            <div class="empty-state">
+                                <div class="empty-icon">📦</div>
+                                <h3>No orders yet</h3>
+                                <p>Start shopping to see your orders here!</p>
+                                <a href="index.html" class="cta-button">Start Shopping</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Settings Section -->
+                    <div id="settings-section" class="content-section">
+                        <h2>Account Settings</h2>
+                        <div class="info-card">
+                            <div class="settings-item">
+                                <h3>Change Password</h3>
+                                <p>Update your password to keep your account secure</p>
+                                <button class="secondary-btn" onclick="alert('Password change feature coming soon!')">
+                                    Change Password
+                                </button>
+                            </div>
+                            <div class="settings-item">
+                                <h3>Email Notifications</h3>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" checked>
+                                    Receive order updates via email
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" checked>
+                                    Receive promotional emails
+                                </label>
+                            </div>
+                            <div class="settings-item danger-zone">
+                                <h3>Delete Account</h3>
+                                <p>Permanently delete your account and all data</p>
+                                <button class="danger-btn" onclick="alert('Account deletion feature coming soon!')">
+                                    Delete Account
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ShopHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/../js/profile.js"></script>
+</body>
+</html>

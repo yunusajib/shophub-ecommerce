@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wishlist - ShopHub</title>
+    <link rel="stylesheet" href="../css/../css/../css/styles.css">
+    <link rel="stylesheet" href="../css/../css/../css/cart-styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><h1>ShopHub</h1></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#products">Products</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions" style="display: flex; gap: 15px;">
+                <a href="wishlist.html" style="color: white; text-decoration: none;">
+                    ❤️ <span id="wishlist-count">0</span>
+                </a>
+                <div class="cart-icon">
+                    <a href="cart.html" style="color: white; text-decoration: none;">🛒 <span id="cart-count">0</span></a>
+                </div>
+                <div class="auth-links" id="auth-links">
+                    <a href="login.html" style="color: white; text-decoration: none; margin-left: 15px;">Login</a>
+                </div>
+                <div class="user-menu" id="user-menu" style="display: none; margin-left: 15px;">
+                    <a href="profile.html" style="color: white; text-decoration: none;">
+                        👤 <span id="user-name-display">My Account</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Wishlist Section -->
+    <section class="cart-section">
+        <div class="container">
+            <h1 class="page-title">My Wishlist</h1>
+            
+            <div class="cart-content">
+                <!-- Wishlist Items -->
+                <div class="cart-items-container">
+                    <div id="wishlist-items">
+                        <!-- Wishlist items will be loaded here -->
+                    </div>
+                    
+                    <div id="empty-wishlist" class="empty-cart" style="display: none;">
+                        <div class="empty-cart-icon">❤️</div>
+                        <h2>Your wishlist is empty</h2>
+                        <p>Save items you love for later!</p>
+                        <a href="index.html" class="continue-shopping-btn">Start Shopping</a>
+                    </div>
+                </div>
+                
+                <!-- Wishlist Summary -->
+                <div class="cart-summary">
+                    <h2>Wishlist Summary</h2>
+                    
+                    <div class="summary-row">
+                        <span>Total Items:</span>
+                        <span id="wishlist-item-count">0</span>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <span>Total Value:</span>
+                        <span id="wishlist-total">$0.00</span>
+                    </div>
+                    
+                    <button class="checkout-btn" onclick="addAllToCart()">
+                        Add All to Cart
+                    </button>
+                    
+                    <button class="checkout-btn" onclick="clearWishlist()" style="background-color: #e74c3c; margin-top: 10px;">
+                        Clear Wishlist
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ShopHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/../js/../js/../js/wishlist.js"></script>
+</body>
+</html>
