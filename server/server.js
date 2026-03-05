@@ -18,19 +18,12 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../client')));
-app.use('/pages', express.static(path.join(__dirname, '../client/pages')));
+
 
 // Health check
 
 // Serve HTML pages
-app.get('/*.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/pages', req.params[0] + '.html'));
-});
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/pages/index.html'));
-});
 
 app.use('/api/payment', paymentRoutes);
 
