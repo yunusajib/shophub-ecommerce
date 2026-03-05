@@ -1,11 +1,9 @@
 const API_URL = 'https://shophub-backend-k2dx.onrender.com/api';
 
-// Get current user
 function getCurrentUser() {
     return JSON.parse(localStorage.getItem('currentUser'));
 }
 
-// Update cart count
 function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const count = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -16,7 +14,6 @@ function updateCartCount() {
     }
 }
 
-// Load cart items
 function loadCart() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const cartItemsContainer = document.getElementById('cart-items');
@@ -43,7 +40,6 @@ function loadCart() {
     displayOrderSummary();
 }
 
-// Display order summary
 function displayOrderSummary() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     
@@ -52,8 +48,8 @@ function displayOrderSummary() {
         return sum + (price * item.quantity);
     }, 0);
     
-    const shipping = subtotal > 0 ? 1000 : 0; // ₦1,000 shipping
-    const tax = subtotal * 0.075; // 7.5% VAT in Nigeria
+    const shipping = subtotal > 0 ? 1000 : 0;
+    const tax = subtotal * 0.075;
     const total = subtotal + shipping + tax;
     
     const subtotalEl = document.getElementById('subtotal');
@@ -67,7 +63,6 @@ function displayOrderSummary() {
     if (totalEl) totalEl.textContent = total.toFixed(2);
 }
 
-// Place order with Paystack
 async function placeOrder() {
     try {
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -76,7 +71,6 @@ async function placeOrder() {
             return;
         }
 
-        // Get form data
         const firstName = document.getElementById('firstName')?.value;
         const lastName = document.getElementById('lastName')?.value;
         const email = document.getElementById('email')?.value;
@@ -86,26 +80,22 @@ async function placeOrder() {
         const state = document.getElementById('state')?.value;
         const zipCode = document.getElementById('zipCode')?.value;
 
-        // Validate
         if (!firstName || !lastName || !email || !phone || !address || !city || !state || !zipCode) {
             alert('Please fill in all shipping details');
             return;
         }
 
-        // Calculate totals
         const subtotal = cart.reduce((sum, item) => sum + (parseFloat(item.price) * item.quantity), 0);
         const shipping = 1000;
         const tax = subtotal * 0.075;
         const total = subtotal + shipping + tax;
 
-        // Show loading
         const placeOrderBtn = document.querySelector('.place-order-btn');
         if (placeOrderBtn) {
             placeOrderBtn.disabled = true;
             placeOrderBtn.textContent = 'Processing...';
         }
 
-        // Create order in database first
         const orderData = {
             userId: getCurrentUser()?.id || null,
             items: cart.map(item => ({
@@ -124,7 +114,8 @@ async function placeOrder() {
             total
         };
 
-        // Save order
+        console.log('Sending order data:', orderData);
+
         const orderResponse = await fetch(`${API_URL}/orders`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -132,12 +123,22 @@ async function placeOrder() {
         });
 
         if (!orderResponse.ok) {
-            throw new Error('Failed to create order');
+            const errorText = await orderResponse.text();
+            console.error('Order creation failed. Status:', orderResponse.status);
+            console.error('Response:', errorText);
+            let errorMessage = 'Failed to create order';
+            try {
+                const errorData = JSON.parse(errorText);
+                errorMessage = errorData.message || errorMessage;
+            } catch (e) {
+                errorMessage = errorText || errorMessage;
+            }
+            throw new Error(errorMessage);
         }
         
         const order = await orderResponse.json();
+        console.log('Order created:', order);
 
-        // Initialize Paystack payment
         const paymentResponse = await fetch(`${API_URL}/payment/initialize`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -149,28 +150,21 @@ async function placeOrder() {
             })
         });
 
-        if (!paymentResponse.ok) {
-            throw new Error('Failed to initialize payment');
-        }
-        
         const paymentData = await paymentResponse.json();
+        console.log('Payment response:', paymentData);
 
         if (paymentData.success) {
-            // Save order ID and reference
             localStorage.setItem('pendingOrderId', order.id);
             localStorage.setItem('paymentReference', paymentData.reference);
-            
-            // Redirect to Paystack payment page
             window.location.href = paymentData.authorization_url;
         } else {
-            throw new Error('Payment initialization failed');
+            throw new Error(paymentData.message || 'Payment initialization failed');
         }
 
     } catch (error) {
         console.error('Error placing order:', error);
-        alert('Failed to place order. Please try again.');
+        alert('Failed to place order: ' + error.message);
         
-        // Re-enable button
         const placeOrderBtn = document.querySelector('.place-order-btn');
         if (placeOrderBtn) {
             placeOrderBtn.disabled = false;
@@ -179,29 +173,19 @@ async function placeOrder() {
     }
 }
 
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', () => {
-    loadCart();
-    updateCartCount();
-});
-
-// Multi-step form navigation
 let currentStep = 1;
 
 function goToStep(step) {
-    // Hide all steps
     document.querySelectorAll('.checkout-step').forEach(s => {
         s.classList.remove('active');
     });
     
-    // Show current step
     const stepElement = document.getElementById(`step-${step}`);
     if (stepElement) {
         stepElement.classList.add('active');
         currentStep = step;
     }
     
-    // Update step indicators
     document.querySelectorAll('.step-indicator').forEach((indicator, index) => {
         if (index < step) {
             indicator.classList.add('completed');
@@ -227,7 +211,6 @@ function previousStep() {
 
 function validateCurrentStep() {
     if (currentStep === 1) {
-        // Validate shipping info
         const firstName = document.getElementById('firstName')?.value;
         const lastName = document.getElementById('lastName')?.value;
         const email = document.getElementById('email')?.value;
@@ -242,7 +225,6 @@ function validateCurrentStep() {
     return true;
 }
 
-// Initialize steps
 document.addEventListener('DOMContentLoaded', () => {
     goToStep(1);
     loadCart();
