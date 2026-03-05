@@ -1,47 +1,59 @@
-// Configuration
 const API_URL = 'https://shophub-backend-k2dx.onrender.com/api';
 
-// Initialize
-document.addEventListener('DOMContentLoaded', async () => {
-    await loadOrderDetails();
-});
-
-// Load order details
-async function loadOrderDetails() {
-    const orderId = localStorage.getItem('lastOrderId');
-    
-    if (!orderId) {
-        // No order ID found, redirect to home
-        window.location.href = 'index.html';
-        return;
-    }
-    
+async function verifyPayment() {
     try {
-        const response = await fetch(`${API_URL}/orders/${orderId}`);
-        
-        if (!response.ok) {
-            throw new Error('Order not found');
+        const urlParams = new URLSearchParams(window.location.search);
+        const reference = urlParams.get('reference') || localStorage.getItem('paymentReference');
+        const orderId = urlParams.get('orderId') || localStorage.getItem('pendingOrderId');
+
+        if (!reference) {
+            document.getElementById('order-status').innerHTML = 
+                '<p class="error">No payment reference found</p>';
+            return;
         }
-        
-        const order = await response.json();
-        displayOrderDetails(order);
-        
-        // Clear the stored order ID
-        localStorage.removeItem('lastOrderId');
-        
+
+        document.getElementById('order-status').innerHTML = 
+            '<p>Verifying payment...</p>';
+
+        const response = await fetch(`${API_URL}/payment/verify/${reference}`);
+        const result = await response.json();
+
+        if (result.success && result.data.status === 'success') {
+            document.getElementById('order-status').innerHTML = `
+                <div class="success-message">
+                    <h2>✅ Payment Successful!</h2>
+                    <p>Order ID: ${orderId}</p>
+                    <p>Reference: ${reference}</p>
+                    <p>Amount: ₦${(result.data.amount / 100).toFixed(2)}</p>
+                    <p>Thank you for your order!</p>
+                    <a href="/" class="btn">Continue Shopping</a>
+                    <a href="/profile.html" class="btn">View Orders</a>
+                </div>
+            `;
+
+            localStorage.removeItem('cart');
+            localStorage.removeItem('pendingOrderId');
+            localStorage.removeItem('paymentReference');
+
+        } else {
+            document.getElementById('order-status').innerHTML = `
+                <div class="error-message">
+                    <h2>❌ Payment Failed</h2>
+                    <p>Your payment could not be processed.</p>
+                    <a href="/checkout.html" class="btn">Try Again</a>
+                </div>
+            `;
+        }
+
     } catch (error) {
-        console.error('Error loading order:', error);
-        window.location.href = 'index.html';
+        console.error('Error verifying payment:', error);
+        document.getElementById('order-status').innerHTML = `
+            <div class="error-message">
+                <h2>⚠️ Verification Error</h2>
+                <p>Could not verify payment. Please contact support.</p>
+            </div>
+        `;
     }
 }
 
-// Display order details
-function displayOrderDetails(order) {
-    document.getElementById('order-id').textContent = order.id.toString().padStart(6, '0');
-    document.getElementById('customer-email').textContent = order.shippingAddress.email;
-    
-    document.getElementById('detail-subtotal').textContent = `$${order.subtotal.toFixed(2)}`;
-    document.getElementById('detail-shipping').textContent = order.shipping === 0 ? 'FREE' : `$${order.shipping.toFixed(2)}`;
-    document.getElementById('detail-tax').textContent = `$${order.tax.toFixed(2)}`;
-    document.getElementById('detail-total').textContent = `$${order.total.toFixed(2)}`;
-}
+document.addEventListener('DOMContentLoaded', verifyPayment);
