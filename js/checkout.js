@@ -184,3 +184,67 @@ document.addEventListener('DOMContentLoaded', () => {
     loadCart();
     updateCartCount();
 });
+
+// Multi-step form navigation
+let currentStep = 1;
+
+function goToStep(step) {
+    // Hide all steps
+    document.querySelectorAll('.checkout-step').forEach(s => {
+        s.classList.remove('active');
+    });
+    
+    // Show current step
+    const stepElement = document.getElementById(`step-${step}`);
+    if (stepElement) {
+        stepElement.classList.add('active');
+        currentStep = step;
+    }
+    
+    // Update step indicators
+    document.querySelectorAll('.step-indicator').forEach((indicator, index) => {
+        if (index < step) {
+            indicator.classList.add('completed');
+            indicator.classList.remove('active');
+        } else if (index === step - 1) {
+            indicator.classList.add('active');
+            indicator.classList.remove('completed');
+        } else {
+            indicator.classList.remove('active', 'completed');
+        }
+    });
+}
+
+function nextStep() {
+    if (validateCurrentStep()) {
+        goToStep(currentStep + 1);
+    }
+}
+
+function previousStep() {
+    goToStep(currentStep - 1);
+}
+
+function validateCurrentStep() {
+    if (currentStep === 1) {
+        // Validate shipping info
+        const firstName = document.getElementById('firstName')?.value;
+        const lastName = document.getElementById('lastName')?.value;
+        const email = document.getElementById('email')?.value;
+        const phone = document.getElementById('phone')?.value;
+        const address = document.getElementById('address')?.value;
+        
+        if (!firstName || !lastName || !email || !phone || !address) {
+            alert('Please fill in all required fields');
+            return false;
+        }
+    }
+    return true;
+}
+
+// Initialize steps
+document.addEventListener('DOMContentLoaded', () => {
+    goToStep(1);
+    loadCart();
+    updateCartCount();
+});
