@@ -10,6 +10,7 @@ const Product = require('./models/Product');
 const Order = require('./models/Order');
 const Review = require('./models/Review');
 const Admin = require('./models/Admin');
+const paymentRoutes = require('./routes/payment');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -30,6 +31,8 @@ app.get('/*.html', (req, res) => {
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/pages/index.html'));
 });
+
+app.use('/api/payment', paymentRoutes);
 
 app.get('/api/health', (req, res) => {
     res.json({ status: 'OK', message: 'ShopHub API is running with PostgreSQL!' });
