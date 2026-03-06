@@ -335,7 +335,7 @@ app.post('/api/orders', async (req, res) => {
     try {
         const orderData = req.body;
         
-        if (!orderData.items || !orderData.shippingAddress || !orderData.paymentInfo) {
+        if (!orderData.items || !orderData.shippingAddress) {
             return res.status(400).json({ message: 'Missing required order information' });
         }
         
