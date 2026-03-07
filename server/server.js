@@ -479,8 +479,10 @@ app.post('/api/admin/login', async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
         
-        // NOTE: In production, use bcrypt.compare()
-        if (admin.password !== password) {
+        // Compare password using bcrypt
+        const validPassword = await bcrypt.compare(password, admin.password);
+        
+        if (!validPassword) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
         
