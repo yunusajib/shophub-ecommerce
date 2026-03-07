@@ -413,3 +413,196 @@ function showNotification(message, type = 'success') {
         setTimeout(() => notification.remove(), 300);
     }, 3000);
 }
+
+// ============================================
+// VENDOR MANAGEMENT
+// ============================================
+
+// Load all vendors
+async function loadVendors() {
+    try {
+        const response = await fetch(`${API_URL}/vendors`);
+        if (!response.ok) throw new Error('Failed to load vendors');
+        
+        const vendors = await response.json();
+        const tbody = document.getElementById('vendors-table-body');
+        
+        if (!tbody) return;
+        
+        if (vendors.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="8">No vendors registered yet</td></tr>';
+            return;
+        }
+        
+        tbody.innerHTML = vendors.map(vendor => `
+            <tr>
+                <td>${vendor.id}</td>
+                <td>${vendor.shop_name || vendor.shopName}</td>
+                <td>${vendor.owner_name || vendor.ownerName}</td>
+                <td>${vendor.email}</td>
+                <td>${vendor.phone || 'N/A'}</td>
+                <td>${(vendor.rating || 0).toFixed(1)} ⭐</td>
+                <td>${new Date(vendor.created_at || Date.now()).toLocaleDateString()}</td>
+                <td>
+                    <button onclick="editVendor(${vendor.id})" class="btn btn-sm btn-primary">Edit</button>
+                    <button onclick="deleteVendor(${vendor.id})" class="btn btn-sm btn-danger">Delete</button>
+                </td>
+            </tr>
+        `).join('');
+        
+    } catch (error) {
+        console.error('Error loading vendors:', error);
+        const tbody = document.getElementById('vendors-table-body');
+        if (tbody) tbody.innerHTML = '<tr><td colspan="8">Error loading vendors</td></tr>';
+    }
+}
+
+// Show add vendor modal
+function showAddVendorModal() {
+    const modal = document.getElementById('vendor-modal');
+    const form = document.getElementById('vendor-form');
+    const title = document.getElementById('vendor-modal-title');
+    
+    if (!modal || !form) return;
+    
+    form.reset();
+    document.getElementById('vendor-id').value = '';
+    if (title) title.textContent = 'Add New Vendor';
+    document.getElementById('vendor-password').required = true;
+    
+    modal.style.display = 'block';
+}
+
+// Save vendor (add or update)
+async function saveVendor(event) {
+    event.preventDefault();
+    
+    const vendorId = document.getElementById('vendor-id').value;
+    const password = document.getElementById('vendor-password').value;
+    
+    // Validate password for new vendors
+    if (!vendorId && (!password || password.length < 6)) {
+        alert('Password must be at least 6 characters');
+        return;
+    }
+    
+    const vendorData = {
+        shopName: document.getElementById('vendor-shop-name').value,
+        ownerName: document.getElementById('vendor-owner-name').value,
+        email: document.getElementById('vendor-email').value,
+        phone: document.getElementById('vendor-phone').value || '',
+        address: document.getElementById('vendor-address').value || '',
+        description: document.getElementById('vendor-description').value || ''
+    };
+    
+    // Only include password if provided
+    if (password) {
+        vendorData.password = password;
+    }
+    
+    try {
+        let response;
+        
+        if (vendorId) {
+            // Update existing vendor
+            response = await fetch(`${API_URL}/vendors/${vendorId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(vendorData)
+            });
+        } else {
+            // Create new vendor
+            response = await fetch(`${API_URL}/vendors/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(vendorData)
+            });
+        }
+        
+        if (response.ok) {
+            alert(vendorId ? 'Vendor updated successfully!' : 'Vendor added successfully!');
+            closeVendorModal();
+            loadVendors();
+        } else {
+            const error = await response.json();
+            alert('Error: ' + (error.message || 'Failed to save vendor'));
+        }
+    } catch (error) {
+        console.error('Error saving vendor:', error);
+        alert('Failed to save vendor. Please try again.');
+    }
+}
+
+// Edit vendor
+async function editVendor(id) {
+    try {
+        const response = await fetch(`${API_URL}/vendors`);
+        const vendors = await response.json();
+        const vendor = vendors.find(v => v.id === id);
+        
+        if (!vendor) {
+            alert('Vendor not found');
+            return;
+        }
+        
+        // Populate form
+        document.getElementById('vendor-id').value = vendor.id;
+        document.getElementById('vendor-shop-name').value = vendor.shop_name || vendor.shopName;
+        document.getElementById('vendor-owner-name').value = vendor.owner_name || vendor.ownerName;
+        document.getElementById('vendor-email').value = vendor.email;
+        document.getElementById('vendor-phone').value = vendor.phone || '';
+        document.getElementById('vendor-address').value = vendor.address || '';
+        document.getElementById('vendor-description').value = vendor.description || '';
+        document.getElementById('vendor-password').value = '';
+        document.getElementById('vendor-password').required = false;
+        
+        const title = document.getElementById('vendor-modal-title');
+        if (title) title.textContent = 'Edit Vendor';
+        
+        const modal = document.getElementById('vendor-modal');
+        if (modal) modal.style.display = 'block';
+        
+    } catch (error) {
+        console.error('Error loading vendor:', error);
+        alert('Failed to load vendor details');
+    }
+}
+
+// Delete vendor
+async function deleteVendor(id) {
+    if (!confirm('Are you sure you want to delete this vendor? This action cannot be undone.')) {
+        return;
+    }
+    
+    try {
+        const response = await fetch(`${API_URL}/vendors/${id}`, {
+            method: 'DELETE'
+        });
+        
+        if (response.ok) {
+            alert('Vendor deleted successfully!');
+            loadVendors();
+        } else {
+            const error = await response.json();
+            alert('Error: ' + (error.message || 'Failed to delete vendor'));
+        }
+    } catch (error) {
+        console.error('Error deleting vendor:', error);
+        alert('Failed to delete vendor. Please try again.');
+    }
+}
+
+// Close vendor modal
+function closeVendorModal() {
+    const modal = document.getElementById('vendor-modal');
+    if (modal) modal.style.display = 'none';
+}
+
+// Load vendors when vendors section is shown
+document.addEventListener('DOMContentLoaded', () => {
+    // Add to existing DOMContentLoaded if it exists
+    const vendorsSection = document.getElementById('vendors-section');
+    if (vendorsSection) {
+        loadVendors();
+    }
+});
