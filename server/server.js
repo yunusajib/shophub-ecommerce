@@ -469,18 +469,27 @@ app.post('/api/admin/login', async (req, res) => {
     try {
         const { email, password } = req.body;
         
+        console.log('🔐 Admin login attempt:', email);
+        
         if (!email || !password) {
+            console.log('❌ Missing email or password');
             return res.status(400).json({ message: 'Email and password are required' });
         }
         
         const admin = await Admin.getByEmail(email);
         
         if (!admin) {
+            console.log('❌ Admin not found:', email);
             return res.status(401).json({ message: 'Invalid credentials' });
         }
         
+        console.log('✅ Admin found:', email);
+        console.log('Password from DB:', admin.password.substring(0, 20) + '...');
+        console.log('Password provided:', password);
+        
         // Compare password using bcrypt
         const validPassword = await bcrypt.compare(password, admin.password);
+        console.log('Password match result:', validPassword);
         
         if (!validPassword) {
             return res.status(401).json({ message: 'Invalid credentials' });
