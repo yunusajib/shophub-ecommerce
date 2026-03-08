@@ -54,6 +54,14 @@ app.get('/api/products', async (req, res) => {
         }));
         
         res.json(products);
+        
+        // Parse prices to float
+        const products = result.rows.map(p => ({
+            ...p,
+            price: parseFloat(p.price || 0)
+        }));
+        
+        res.json(products);
     } catch (error) {
         console.error('Error fetching products:', error);
         res.status(500).json({ message: 'Failed to fetch products' });

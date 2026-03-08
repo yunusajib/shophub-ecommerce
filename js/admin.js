@@ -521,7 +521,8 @@ async function saveVendor(event) {
         
         if (response.ok) {
             alert(vendorId ? 'Vendor updated successfully!' : 'Vendor added successfully!');
-            closeVendorModal();
+        closeVendorModal();
+        loadVendors(); // Reload the list
             loadVendors();
         } else {
             const error = await response.json();
@@ -606,3 +607,30 @@ document.addEventListener('DOMContentLoaded', () => {
         loadVendors();
     }
 });
+
+// Make sure showSection handles vendors
+function showSection(section) {
+    // Hide all sections
+    document.querySelectorAll('.admin-section').forEach(s => {
+        s.classList.remove('active');
+        s.style.display = 'none';
+    });
+    
+    // Show selected section
+    const sectionElement = document.getElementById(section + '-section');
+    if (sectionElement) {
+        sectionElement.classList.add('active');
+        sectionElement.style.display = 'block';
+    }
+    
+    // Load data for the section
+    if (section === 'vendors') {
+        loadVendors();
+    } else if (section === 'products') {
+        loadProducts();
+    } else if (section === 'orders') {
+        loadOrders();
+    } else if (section === 'users') {
+        loadUsers();
+    }
+}
