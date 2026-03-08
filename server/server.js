@@ -39,7 +39,20 @@ app.get('/api/health', (req, res) => {
 // Get all products
 app.get('/api/products', async (req, res) => {
     try {
-        const products = await Product.getAll();
+        // Get products with vendor names
+        const result = await db.query(`
+            SELECT p.*, v.shop_name as vendor_name, v.owner_name as vendor_owner
+            FROM products p 
+            LEFT JOIN vendors v ON p.vendor_id = v.id
+            ORDER BY p.created_at DESC
+        `);
+        
+        // Parse prices to float
+        const products = result.rows.map(p => ({
+            ...p,
+            price: parseFloat(p.price || 0)
+        }));
+        
         res.json(products);
     } catch (error) {
         console.error('Error fetching products:', error);
