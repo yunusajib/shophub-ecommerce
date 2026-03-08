@@ -3,18 +3,14 @@ const db = require('../config/database');
 class Product {
     // Get all products
     static async getAll() {
-        const result = await db.query(`
-            SELECT p.*, v.shop_name as vendor_name, v.owner_name as vendor_owner
-            FROM products p 
-            LEFT JOIN vendors v ON p.vendor_id = v.id
-            ORDER BY p.created_at DESC
-        `);
-        
-        return result.rows.map(p => ({
-            ...p,
-            price: parseFloat(p.price || 0)
-        }));
-    }));
+        const result = await db.query(
+            `SELECT p.*, v.shop_name as vendor_name 
+             FROM products p 
+             LEFT JOIN vendors v ON p.vendor_id = v.id 
+             WHERE p.is_active = true 
+             ORDER BY p.id`
+        );
+        return result.rows.map(p => ({ ...p, price: parseFloat(p.price) }));
     }
 
     // Get product by ID
