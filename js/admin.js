@@ -108,9 +108,9 @@ function updateDashboard() {
             orderItem.innerHTML = `
                 <div>
                     <strong>Order #${order.id.toString().padStart(6, '0')}</strong>
-                    <div style="font-size: 0.85rem; color: #7f8c8d;">${order.shippingAddress.email}</div>
+                    <div style="font-size: 0.85rem; color: #7f8c8d;">${order.shipping_email}</div>
                 </div>
-                <div style="font-weight: bold; color: #27ae60;">$${order.total.toFixed(2)}</div>
+                <div style="font-weight: bold; color: #27ae60;">$${parseFloat(order.total).toFixed(2)}</div>
             `;
             recentOrdersList.appendChild(orderItem);
         });
@@ -177,9 +177,9 @@ function displayOrders() {
         row.innerHTML = `
             <td>#${order.id.toString().padStart(6, '0')}</td>
             <td>${orderDate}</td>
-            <td>${order.shippingAddress.firstName} ${order.shippingAddress.lastName}</td>
-            <td>${order.items.length}</td>
-            <td><strong>$${order.total.toFixed(2)}</strong></td>
+            <td>${order.shipping_first_name} ${order.shipping_last_name}</td>
+            <td>${(order.items || []).length}</td>
+            <td><strong>$${parseFloat(order.total).toFixed(2)}</strong></td>
             <td><span class="status-badge ${order.status}">${order.status}</span></td>
         `;
         tbody.appendChild(row);
