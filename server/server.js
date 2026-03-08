@@ -8,6 +8,7 @@ const cors = require('cors');
 const User = require('./models/User');
 const Vendor = require('./models/Vendor');
 const Product = require('./models/Product');
+const db = require('./config/database');
 const Order = require('./models/Order');
 const Review = require('./models/Review');
 const Admin = require('./models/Admin');
@@ -469,24 +470,9 @@ app.get('/api/reviews', async (req, res) => {
 // Delete vendor
 app.delete('/api/vendors/:id', async (req, res) => {
     try {
-        const { id } = req.params;
-        
-        // Check if vendor has products
-        const productCheck = await db.query(
-            'SELECT COUNT(*) FROM products WHERE vendor_id = $1',
-            [id]
-        );
-        
-        if (parseInt(productCheck.rows[0].count) > 0) {
-            return res.status(400).json({ 
-                message: 'Cannot delete vendor with existing products. Please delete products first.' 
-            });
-        }
-        
-        // Delete vendor
         const result = await db.query(
             'DELETE FROM vendors WHERE id = $1 RETURNING *',
-            [id]
+            [req.params.id]
         );
         
         if (result.rows.length === 0) {
