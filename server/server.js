@@ -465,15 +465,46 @@ app.get('/api/reviews', async (req, res) => {
 // ============================================================================
 
 // Admin login
+// Admin login
 app.post('/api/admin/login', async (req, res) => {
     try {
         const { email, password } = req.body;
         
-        console.log('🔐 Admin login attempt:', email);
+        console.log('Admin login attempt:', email);
         
         if (!email || !password) {
-            console.log('❌ Missing email or password');
-            return res.status(400).json({ message: 'Email and password are required' });
+            console.log('Missing credentials');
+            return res.status(400).json({ message: 'Email and password required' });
+        }
+        
+        const admin = await Admin.getByEmail(email);
+        
+        if (!admin) {
+            console.log('Admin not found');
+            return res.status(401).json({ message: 'Invalid credentials' });
+        }
+        
+        console.log('Admin found, checking password...');
+        
+        // Compare password using bcrypt
+        const validPassword = await bcrypt.compare(password, admin.password);
+        
+        console.log('Password valid:', validPassword);
+        
+        if (!validPassword) {
+            return res.status(401).json({ message: 'Invalid credentials' });
+        }
+        
+        // Success - return admin data without password
+        const { password: _, ...adminData } = admin;
+        console.log('✅ Admin login successful');
+        res.json(adminData);
+        
+    } catch (error) {
+        console.error('Admin login error:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
         }
         
         const admin = await Admin.getByEmail(email);
