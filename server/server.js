@@ -465,6 +465,41 @@ app.get('/api/reviews', async (req, res) => {
 // ADMIN ROUTES
 // ============================================================================
 
+
+// Delete vendor
+app.delete('/api/vendors/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        
+        // Check if vendor has products
+        const productCheck = await db.query(
+            'SELECT COUNT(*) FROM products WHERE vendor_id = $1',
+            [id]
+        );
+        
+        if (parseInt(productCheck.rows[0].count) > 0) {
+            return res.status(400).json({ 
+                message: 'Cannot delete vendor with existing products. Please delete products first.' 
+            });
+        }
+        
+        // Delete vendor
+        const result = await db.query(
+            'DELETE FROM vendors WHERE id = $1 RETURNING *',
+            [id]
+        );
+        
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: 'Vendor not found' });
+        }
+        
+        res.json({ message: 'Vendor deleted successfully' });
+    } catch (error) {
+        console.error('Delete vendor error:', error);
+        res.status(500).json({ message: 'Failed to delete vendor' });
+    }
+});
+
 // Admin login
 app.post('/api/admin/login', async (req, res) => {
     try {

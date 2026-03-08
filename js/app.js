@@ -143,7 +143,7 @@ function createProductCard(product) {
     card.innerHTML = `
         <div style="position: relative;">
             <div onclick="window.location.href='product-details.html?id=${product.id}'" style="cursor: pointer;">
-                <img src="${product.image}" alt="${product.name}" class="product-image">
+                <img src="${product.image || `https://via.placeholder.com/400x400/3498db/ffffff?text=${encodeURIComponent(product.name)}`}" alt="${product.name}" class="product-image">
                 <div class="product-info">
                     <h3 class="product-name">${product.name}</h3>
                     <div class="product-rating-small">
