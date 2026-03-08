@@ -236,8 +236,8 @@ function displayUsers() {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${user.id}</td>
-            <td><strong>${user.name}</strong></td>
-            <td>${user.email}</td>
+            <td><strong>${user?.name}</strong></td>
+            <td>${user?.email}</td>
             <td>${joinDate}</td>
             <td>${userOrders}</td>
         `;
@@ -441,7 +441,7 @@ async function loadVendors() {
                 <td>${vendor.owner_name || vendor.ownerName}</td>
                 <td>${vendor.email}</td>
                 <td>${vendor.phone || 'N/A'}</td>
-                <td>${(vendor.rating || 0).toFixed(1)} ⭐</td>
+                <td>${parseFloat(vendor.rating || 0).toFixed(1)} ⭐</td>
                 <td>${new Date(vendor.created_at || Date.now()).toLocaleDateString()}</td>
                 <td>
                     <button onclick="editVendor(${vendor.id})" class="btn btn-sm btn-primary">Edit</button>
